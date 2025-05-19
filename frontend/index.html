@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise CRM</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1><i class="fas fa-project-diagram"></i> Enterprise CRM</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="#" class="nav-link active" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+          <li><a href="#" class="nav-link" data-page="leads"><i class="fas fa-funnel-dollar"></i> Leads</a></li>
+          <li><a href="#" class="nav-link" data-page="customers"><i class="fas fa-users"></i> Customers</a></li>
+          <li><a href="#" class="nav-link" data-page="deals"><i class="fas fa-handshake"></i> Deals</a></li>
+          <li><a href="#" class="nav-link" data-page="quotes"><i class="fas fa-file-invoice-dollar"></i> Quotes</a></li>
+          <li><a href="#" class="nav-link" data-page="orders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+          <li><a href="#" class="nav-link" data-page="products"><i class="fas fa-box"></i> Products</a></li>
+          <li><a href="#" class="nav-link" data-page="inventory"><i class="fas fa-warehouse"></i> Inventory</a></li>
+          <li><a href="#" class="nav-link" data-page="reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
+          <li><a href="#" class="nav-link" data-page="settings"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="reload-data-btn" class="btn btn-outline" title="Reload Data">
+          <i class="fas fa-sync-alt"></i> Reload Data
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search...">
+        </div>
+        <div class="user-actions">
+          <div class="notifications">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="user-profile">
+            <img src="img/avatar.png" alt="User Avatar">
+            <span>John Doe</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-wrapper">
+        <!-- Dashboard Page -->
+        <section id="dashboard-page" class="page active">
+          <div class="page-header">
+            <h2>Dashboard</h2>
+          </div>
+          
+          <div class="dashboard-stats">
+            <div class="stat-card">
+              <div class="stat-value">87</div>
+              <div class="stat-label">Active Leads</div>
+              <div class="stat-change positive">+12% <i class="fas fa-arrow-up"></i></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">156</div>
+              <div class="stat-label">Customers</div>
+              <div class="stat-change positive">+5% <i class="fas fa-arrow-up"></i></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">₹64.5k</div>
+              <div class="stat-label">Revenue (MTD)</div>
+              <div class="stat-change positive">+18% <i class="fas fa-arrow-up"></i></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">23</div>
+              <div class="stat-label">Open Deals</div>
+              <div class="stat-change negative">-3% <i class="fas fa-arrow-down"></i></div>
+            </div>
+          </div>
+
+          <div class="dashboard-charts">
+            <div class="chart-container">
+              <div class="chart-header">
+                <h3>Sales Pipeline</h3>
+                <div class="chart-actions">
+                  <select>
+                    <option>This Month</option>
+                    <option>Last Month</option>
+                    <option>This Quarter</option>
+                    <option>This Year</option>
+                  </select>
+                </div>
+              </div>
+              <div class="chart" id="pipeline-chart">
+                <!-- Chart will be rendered here -->
+                <div class="chart-placeholder">Pipeline Chart</div>
+              </div>
+            </div>
+            <div class="chart-container">
+              <div class="chart-header">
+                <h3>Revenue Forecast</h3>
+                <div class="chart-actions">
+                  <select>
+                    <option>Next 30 Days</option>
+                    <option>Next 90 Days</option>
+                    <option>Next 6 Months</option>
+                  </select>
+                </div>
+              </div>
+              <div class="chart" id="revenue-chart">
+                <!-- Chart will be rendered here -->
+                <div class="chart-placeholder">Revenue Chart</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-tables">
+            <div class="table-container">
+              <div class="table-header">
+                <h3>Recent Leads</h3>
+                <a href="#" class="view-all nav-link" data-page="leads">View All</a>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Source</th>
+                    <th>Created</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-leads">
+                  <!-- Leads will be loaded here dynamically -->
+                  <tr>
+                    <td>Sarah Johnson</td>
+                    <td>Acme Inc.</td>
+                    <td><span class="badge badge-new">New</span></td>
+                    <td>Website</td>
+                    <td>Today</td>
+                  </tr>
+                  <tr>
+                    <td>Michael Chen</td>
+                    <td>Tech Solutions</td>
+                    <td><span class="badge badge-qualified">Qualified</span></td>
+                    <td>Referral</td>
+                    <td>Yesterday</td>
+                  </tr>
+                  <tr>
+                    <td>Lisa Brown</td>
+                    <td>Global Services</td>
+                    <td><span class="badge badge-proposal">Proposal</span></td>
+                    <td>LinkedIn</td>
+                    <td>2 days ago</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-container">
+              <div class="table-header">
+                <h3>Tasks Due Soon</h3>
+                <a href="#" class="view-all">View All</a>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Task</th>
+                    <th>Related To</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="upcoming-tasks">
+                  <!-- Tasks will be loaded here dynamically -->
+                  <tr>
+                    <td>Follow up with Acme Inc.</td>
+                    <td>Sarah Johnson</td>
+                    <td>Today</td>
+                    <td><span class="badge badge-high">High</span></td>
+                    <td><span class="badge badge-pending">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <td>Send proposal to Tech Solutions</td>
+                    <td>Michael Chen</td>
+                    <td>Tomorrow</td>
+                    <td><span class="badge badge-medium">Medium</span></td>
+                    <td><span class="badge badge-pending">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <td>Schedule demo with Global Services</td>
+                    <td>Lisa Brown</td>
+                    <td>Jun 15</td>
+                    <td><span class="badge badge-low">Low</span></td>
+                    <td><span class="badge badge-pending">Pending</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Other sections will be included for leads, customers, deals, etc. -->
+        
+        <!-- Leads Page -->
+        <section id="leads-page" class="page">
+          <!-- This content will be loaded separately -->
+        </section>
+        
+        <!-- Customers Page -->
+        <section id="customers-page" class="page">
+          <div class="page-header">
+            <h2>Customers</h2>
+            <button id="add-customer-btn" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Add Customer
+            </button>
+          </div>
+
+          <div class="card">
+            <table id="customers-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Company</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="customers-list">
+                <!-- Customers will be loaded here dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- Deals Page -->
+        <section id="deals-page" class="page">
+          <div class="page-header">
+            <h2>Deals</h2>
+            <button id="add-deal-btn" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Add Deal
+            </button>
+          </div>
+
+          <div class="card">
+            <table id="deals-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Customer</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                  <th>Expected Close</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="deals-list">
+                <!-- Deals will be loaded here dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- More pages for other features -->
+        
+        <!-- Quotes Page -->
+        <section id="quotes-page" class="page">
+          <div class="page-header">
+            <h2>Quotes Management</h2>
+            <button class="btn btn-primary">
+              <i class="fas fa-plus"></i> Create Quote
+            </button>
+          </div>
+          
+          <div class="card">
+            <div class="filter-bar">
+              <div class="search-container">
+                <input type="text" placeholder="Search quotes..." id="quotes-search">
+                <i class="fas fa-search"></i>
+              </div>
+              <div class="filter-options">
+                <select id="filter-quote-status">
+                  <option value="">All Statuses</option>
+                  <option value="Draft">Draft</option>
+                  <option value="Sent">Sent</option>
+                  <option value="Accepted">Accepted</option>
+                  <option value="Declined">Declined</option>
+                </select>
+              </div>
+            </div>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>Quote #</th>
+                  <th>Customer</th>
+                  <th>Amount</th>
+                  <th>Date Created</th>
+                  <th>Valid Until</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="quotes-list">
+                <!-- Quotes will be loaded here dynamically -->
+                <tr>
+                  <td colspan="7" class="text-center">No quotes found</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- Orders Page -->
+        <section id="orders-page" class="page">
+          <div class="page-header">
+            <h2>Orders Management</h2>
+            <button class="btn btn-primary">
+              <i class="fas fa-plus"></i> Create Order
+            </button>
+          </div>
+          
+          <div class="card">
+            <div class="filter-bar">
+              <div class="search-container">
+                <input type="text" placeholder="Search orders..." id="orders-search">
+                <i class="fas fa-search"></i>
+              </div>
+              <div class="filter-options">
+                <select id="filter-order-status">
+                  <option value="">All Statuses</option>
+                  <option value="New">New</option>
+                  <option value="Processing">Processing</option>
+                  <option value="Shipped">Shipped</option>
+                  <option value="Delivered">Delivered</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </div>
+            </div>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Customer</th>
+                  <th>Total Amount</th>
+                  <th>Order Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="orders-list">
+                <!-- Orders will be loaded here dynamically -->
+                <tr>
+                  <td colspan="6" class="text-center">No orders found</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- Products Page -->
+        <section id="products-page" class="page">
+          <div class="page-header">
+            <h2>Products Management</h2>
+            <button class="btn btn-primary">
+              <i class="fas fa-plus"></i> Add Product
+            </button>
+          </div>
+          
+          <div class="card">
+            <div class="filter-bar">
+              <div class="search-container">
+                <input type="text" placeholder="Search products..." id="products-search">
+                <i class="fas fa-search"></i>
+              </div>
+              <div class="filter-options">
+                <select id="filter-category">
+                  <option value="">All Categories</option>
+                  <option value="Software">Software</option>
+                  <option value="Hardware">Hardware</option>
+                  <option value="Services">Services</option>
+                </select>
+              </div>
+            </div>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>Product Code</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-list">
+                <!-- Products will be loaded here dynamically -->
+                <tr>
+                  <td colspan="6" class="text-center">No products found</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- Inventory Page -->
+        <section id="inventory-page" class="page">
+          <div class="page-header">
+            <h2>Inventory Management</h2>
+            <div class="page-actions">
+              <button class="btn btn-outline">
+                <i class="fas fa-file-import"></i> Import
+              </button>
+              <button class="btn btn-outline">
+                <i class="fas fa-file-export"></i> Export
+              </button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="filter-bar">
+              <div class="search-container">
+                <input type="text" placeholder="Search inventory..." id="inventory-search">
+                <i class="fas fa-search"></i>
+              </div>
+              <div class="filter-options">
+                <select id="filter-stock-status">
+                  <option value="">All Stock Status</option>
+                  <option value="In Stock">In Stock</option>
+                  <option value="Low Stock">Low Stock</option>
+                  <option value="Out of Stock">Out of Stock</option>
+                </select>
+              </div>
+            </div>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>Product Code</th>
+                  <th>Name</th>
+                  <th>Quantity</th>
+                  <th>Reorder Level</th>
+                  <th>Last Updated</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-list">
+                <!-- Inventory items will be loaded here dynamically -->
+                <tr>
+                  <td colspan="7" class="text-center">No inventory items found</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- Reports Page -->
+        <section id="reports-page" class="page">
+          <div class="page-header">
+            <h2>Reports & Analytics</h2>
+          </div>
+          
+          <div class="reports-grid">
+            <!-- Sales Report -->
+            <div class="card">
+              <div class="card-header">
+                <h3>Sales Report</h3>
+                <div class="card-actions">
+                  <select id="sales-report-period">
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="365">Last Year</option>
+                  </select>
+                  <button class="btn btn-sm btn-outline">
+                    <i class="fas fa-download"></i> Export
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <div class="chart-placeholder">Sales Chart</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Lead Sources -->
+            <div class="card">
+              <div class="card-header">
+                <h3>Lead Sources</h3>
+                <div class="card-actions">
+                  <select id="lead-source-period">
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="365">Last Year</option>
+                  </select>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <div class="chart-placeholder">Lead Sources Chart</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Conversion Rate -->
+            <div class="card">
+              <div class="card-header">
+                <h3>Conversion Rate</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <div class="chart-placeholder">Conversion Rate Chart</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Top Products -->
+            <div class="card">
+              <div class="card-header">
+                <h3>Top Products</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <div class="chart-placeholder">Top Products Chart</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Settings Page -->
+        <section id="settings-page" class="page">
+          <div class="page-header">
+            <h2>Settings</h2>
+          </div>
+          
+          <div class="settings-tabs">
+            <div class="tab-navigation">
+              <button class="tab-btn active" data-tab="general">General</button>
+              <button class="tab-btn" data-tab="users">Users & Permissions</button>
+              <button class="tab-btn" data-tab="email">Email Templates</button>
+              <button class="tab-btn" data-tab="customization">Customization</button>
+              <button class="tab-btn" data-tab="integrations">Integrations</button>
+            </div>
+            
+            <div class="tab-content">
+              <!-- General Settings Tab -->
+              <div class="tab-pane active" id="general">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Company Information</h3>
+                  </div>
+                  <div class="card-body">
+                    <form id="company-info-form">
+                      <div class="form-group">
+                        <label for="company-name">Company Name</label>
+                        <input type="text" id="company-name" name="companyName" value="Enterprise CRM Inc.">
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group">
+                          <label for="company-email">Email</label>
+                          <input type="email" id="company-email" name="email" value="contact@enterprise-crm.com">
+                        </div>
+                        <div class="form-group">
+                          <label for="company-phone">Phone</label>
+                          <input type="tel" id="company-phone" name="phone" value="+1 (555) 123-4567">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="company-address">Address</label>
+                        <textarea id="company-address" name="address" rows="3">123 Business Street
+San Francisco, CA 94107
+United States</textarea>
+                      </div>
+                      <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Users & Permissions Tab -->
+              <div class="tab-pane" id="users">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Users</h3>
+                    <button class="btn btn-sm btn-primary">
+                      <i class="fas fa-plus"></i> Add User
+                    </button>
+                  </div>
+                  <div class="card-body">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Role</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>John Doe</td>
+                          <td>john@example.com</td>
+                          <td>Administrator</td>
+                          <td><span class="badge badge-active">Active</span></td>
+                          <td class="actions">
+                            <button class="btn btn-icon btn-outline">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-icon btn-outline">
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Jane Smith</td>
+                          <td>jane@example.com</td>
+                          <td>Sales Manager</td>
+                          <td><span class="badge badge-active">Active</span></td>
+                          <td class="actions">
+                            <button class="btn btn-icon btn-outline">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-icon btn-outline">
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Other tabs would follow the same pattern -->
+              <div class="tab-pane" id="email">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Email Templates</h3>
+                    <button class="btn btn-sm btn-primary">
+                      <i class="fas fa-plus"></i> Add Template
+                    </button>
+                  </div>
+                  <div class="card-body">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Template Name</th>
+                          <th>Subject</th>
+                          <th>Last Modified</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Welcome Email</td>
+                          <td>Welcome to Enterprise CRM!</td>
+                          <td>2 days ago</td>
+                          <td class="actions">
+                            <button class="btn btn-icon btn-outline">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-icon btn-outline">
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Quote Follow-up</td>
+                          <td>Following up on your recent quote</td>
+                          <td>1 week ago</td>
+                          <td class="actions">
+                            <button class="btn btn-icon btn-outline">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-icon btn-outline">
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="tab-pane" id="customization">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Custom Fields</h3>
+                  </div>
+                  <div class="card-body">
+                    <p>No custom fields configured yet.</p>
+                    <button class="btn btn-primary">Add Custom Field</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="tab-pane" id="integrations">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Available Integrations</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="integration-item">
+                      <div class="integration-info">
+                        <h4>Google Calendar</h4>
+                        <p>Sync your meetings and appointments with Google Calendar</p>
+                        <span class="badge badge-inactive">Not Connected</span>
+                      </div>
+                      <button class="btn btn-outline">Connect</button>
+                    </div>
+                    <div class="integration-item">
+                      <div class="integration-info">
+                        <h4>Mailchimp</h4>
+                        <p>Sync your contacts with Mailchimp for email marketing</p>
+                        <span class="badge badge-inactive">Not Connected</span>
+                      </div>
+                      <button class="btn btn-outline">Connect</button>
+                    </div>
+                    <div class="integration-item">
+                      <div class="integration-info">
+                        <h4>Slack</h4>
+                        <p>Get notified in Slack for important events</p>
+                        <span class="badge badge-inactive">Not Connected</span>
+                      </div>
+                      <button class="btn btn-outline">Connect</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Customer Modal -->
+  <div id="customer-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="customer-modal-title">Add Customer</h3>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="customer-form">
+          <input type="hidden" id="customer-id">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company">
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+              <option value="Lead">Lead</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" rows="4"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deal Modal -->
+  <div id="deal-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="deal-modal-title">Add Deal</h3>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="deal-form">
+          <input type="hidden" id="deal-id">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+          </div>
+          <div class="form-group">
+            <label for="customer">Customer</label>
+            <select id="customer" name="customer" required>
+              <!-- Customers will be loaded here dynamically -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="value">Value (₹)</label>
+            <input type="number" id="value" name="value" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="deal-status">Status</label>
+            <select id="deal-status" name="status">
+              <option value="New">New</option>
+              <option value="Qualified">Qualified</option>
+              <option value="Proposal">Proposal</option>
+              <option value="Negotiation">Negotiation</option>
+              <option value="Won">Won</option>
+              <option value="Lost">Lost</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="expected-close-date">Expected Close Date</label>
+            <input type="date" id="expected-close-date" name="expectedCloseDate">
+          </div>
+          <div class="form-group">
+            <label for="deal-notes">Notes</label>
+            <textarea id="deal-notes" name="notes" rows="4"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/quotes.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/reports.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html> 

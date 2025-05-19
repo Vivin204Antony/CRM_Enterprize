@@ -1,0 +1,818 @@
+/* Filter Bar */
+.filter-bar {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--box-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  border: 1px solid var(--grey-light);
+  border-radius: 5px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-container input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+.search-container i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--grey-color);
+}
+
+.filter-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-options select {
+  padding: 10px 15px;
+  border: 1px solid var(--grey-light);
+  border-radius: 5px;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: white;
+  min-width: 150px;
+}
+
+.filter-options select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+/* View Options */
+.view-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.view-selector {
+  display: flex;
+  gap: 10px;
+}
+
+.view-btn {
+  padding: 8px 15px;
+  border: 1px solid var(--grey-light);
+  background-color: white;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.view-btn i {
+  font-size: 0.9rem;
+}
+
+.view-btn:hover {
+  border-color: var(--primary-color);
+}
+
+.view-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.sort-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-options select {
+  padding: 8px 15px;
+  border: 1px solid var(--grey-light);
+  border-radius: 5px;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: white;
+}
+
+.view-container {
+  display: none;
+}
+
+.view-container.active {
+  display: block;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.pagination-info {
+  color: var(--grey-color);
+  font-size: 0.9rem;
+}
+
+/* Kanban Board */
+.kanban-board {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 15px;
+  min-height: 600px;
+}
+
+.kanban-column {
+  min-width: 280px;
+  background-color: #f7f9fc;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+}
+
+.kanban-column-header {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--grey-light);
+}
+
+.kanban-column-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.kanban-column-header .badge {
+  background-color: var(--grey-light);
+  color: var(--grey-color);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.kanban-cards {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  min-height: 100px;
+}
+
+.kanban-cards.drag-over {
+  background-color: rgba(67, 97, 238, 0.05);
+}
+
+.kanban-card {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-bottom: 15px;
+  cursor: grab;
+  transition: all 0.2s;
+}
+
+.kanban-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.kanban-card.dragging {
+  opacity: 0.5;
+}
+
+.kanban-card.hide {
+  display: none;
+}
+
+.kanban-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.lead-name {
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.lead-score {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.kanban-card-body {
+  margin-bottom: 10px;
+}
+
+.lead-company {
+  font-size: 0.9rem;
+  color: var(--grey-color);
+  margin-bottom: 5px;
+}
+
+.lead-contact {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+}
+
+.kanban-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kanban-card-footer .badge-sm {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  background-color: var(--grey-light);
+  color: var(--grey-color);
+}
+
+.assigned-to {
+  font-size: 0.8rem;
+  color: var(--grey-color);
+}
+
+.kanban-empty-state {
+  padding: 20px;
+  text-align: center;
+  color: var(--grey-color);
+  font-size: 0.9rem;
+}
+
+/* Deal Pipeline */
+.pipeline-container {
+  overflow-x: auto;
+  padding-bottom: 15px;
+}
+
+.pipeline {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.pipeline-stage {
+  flex: 1;
+  min-width: 150px;
+}
+
+.pipeline-stage-bar {
+  height: 30px;
+  background-color: var(--grey-light);
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pipeline-stage-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 15px;
+}
+
+.pipeline-stage-label {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--grey-color);
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pipeline-stage-value {
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-top: 2px;
+}
+
+/* Task List */
+.task-list {
+  list-style: none;
+}
+
+.task-item {
+  padding: 15px;
+  border-bottom: 1px solid var(--grey-light);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--grey-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.task-checkbox.checked {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: white;
+}
+
+.task-content {
+  flex: 1;
+}
+
+.task-title {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.task-title.completed {
+  text-decoration: line-through;
+  color: var(--grey-color);
+}
+
+.task-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 0.85rem;
+  color: var(--grey-color);
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Calendar and Schedule */
+.calendar-container {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+}
+
+.calendar-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--grey-light);
+}
+
+.calendar-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.calendar-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-collapse: collapse;
+}
+
+.calendar-day {
+  height: 120px;
+  border: 1px solid var(--grey-light);
+  padding: 8px;
+  vertical-align: top;
+}
+
+.calendar-day-header {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid var(--grey-light);
+  background-color: #f7f9fc;
+  font-weight: 600;
+}
+
+.calendar-date {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.calendar-today {
+  background-color: rgba(67, 97, 238, 0.05);
+}
+
+.calendar-today .calendar-date {
+  background-color: var(--primary-color);
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-event {
+  background-color: rgba(67, 97, 238, 0.1);
+  color: var(--primary-color);
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calendar-event.event-call {
+  background-color: rgba(67, 97, 238, 0.1);
+  color: var(--primary-color);
+}
+
+.calendar-event.event-meeting {
+  background-color: rgba(249, 199, 79, 0.1);
+  color: #f39c12;
+}
+
+.calendar-event.event-deadline {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: var(--danger-color);
+}
+
+/* Activity Feed */
+.activity-feed {
+  list-style: none;
+}
+
+.activity-item {
+  padding: 15px 0;
+  display: flex;
+  gap: 15px;
+  border-bottom: 1px solid var(--grey-light);
+}
+
+.activity-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(67, 97, 238, 0.1);
+  color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.activity-icon.activity-call {
+  background-color: rgba(67, 97, 238, 0.1);
+  color: var(--primary-color);
+}
+
+.activity-icon.activity-email {
+  background-color: rgba(76, 201, 240, 0.1);
+  color: var(--success-color);
+}
+
+.activity-icon.activity-meeting {
+  background-color: rgba(249, 199, 79, 0.1);
+  color: #f39c12;
+}
+
+.activity-icon.activity-task {
+  background-color: rgba(243, 156, 18, 0.1);
+  color: #f39c12;
+}
+
+.activity-icon.activity-note {
+  background-color: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 5px;
+}
+
+.activity-title {
+  font-weight: 500;
+}
+
+.activity-time {
+  font-size: 0.85rem;
+  color: var(--grey-color);
+}
+
+.activity-body {
+  color: var(--grey-color);
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+}
+
+.activity-footer a {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Toasts and Notifications */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  max-width: 500px;
+  z-index: 2000;
+  animation: slideUp 0.3s;
+}
+
+.toast.toast-hiding {
+  animation: slideDown 0.3s;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toast-success .toast-content i {
+  color: var(--success-color);
+}
+
+.toast-error .toast-content i {
+  color: var(--danger-color);
+}
+
+.toast-warning .toast-content i {
+  color: var(--warning-color);
+}
+
+.toast-info .toast-content i {
+  color: var(--primary-color);
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--grey-color);
+  cursor: pointer;
+}
+
+/* Dropdown Menus */
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 180px;
+  z-index: 1000;
+  display: none;
+}
+
+.user-dropdown.active {
+  display: block;
+  animation: fadeIn 0.2s;
+}
+
+.user-dropdown ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-dropdown li {
+  padding: 0;
+  margin: 0;
+}
+
+.user-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  color: var(--dark-color);
+  transition: background-color 0.2s;
+}
+
+.user-dropdown a:hover {
+  background-color: #f7f9fc;
+}
+
+.user-dropdown a i {
+  font-size: 1rem;
+  width: 20px;
+  color: var(--grey-color);
+}
+
+/* Convert Lead Form */
+.convert-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--grey-light);
+}
+
+.convert-section h4 {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+/* Analytics Dashboard */
+.metric-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.metric-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--grey-color);
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.metric-change {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+}
+
+.metric-change.positive {
+  color: var(--success-color);
+}
+
+.metric-change.negative {
+  color: var(--danger-color);
+}
+
+.metric-comparison {
+  font-size: 0.9rem;
+  color: var(--grey-color);
+}
+
+/* Responsive for Additional Components */
+@media (max-width: 992px) {
+  .kanban-board {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-options {
+    justify-content: space-between;
+  }
+  
+  .pipeline {
+    flex-wrap: wrap;
+  }
+  
+  .pipeline-stage {
+    min-width: calc(50% - 10px);
+  }
+  
+  .calendar-grid {
+    overflow-x: auto;
+    min-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .view-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .sort-options {
+    width: 100%;
+  }
+  
+  .sort-options select {
+    width: 100%;
+  }
+  
+  .toast {
+    left: 20px;
+    right: 20px;
+    max-width: none;
+  }
+  
+  .activity-header {
+    flex-direction: column;
+  }
+  
+  .activity-time {
+    margin-top: 5px;
+  }
+} 

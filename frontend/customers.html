@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Management - Enterprise CRM</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar will be loaded with JavaScript -->
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+      <!-- Header will be loaded with JavaScript -->
+      <div id="header-container"></div>
+
+      <div class="content-wrapper">
+        <section id="customers-page" class="page active">
+          <div class="page-header">
+            <h2>Customer Management</h2>
+            <div class="page-actions">
+              <button class="btn btn-primary" id="add-customer-btn">
+                <i class="fas fa-plus"></i> Add Customer
+              </button>
+              <button class="btn btn-outline" id="import-customers-btn">
+                <i class="fas fa-file-import"></i> Import
+              </button>
+              <button class="btn btn-outline" id="export-customers-btn">
+                <i class="fas fa-file-export"></i> Export
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-bar">
+            <div class="search-container">
+              <input type="text" placeholder="Search customers..." id="customer-search">
+              <i class="fas fa-search"></i>
+            </div>
+            <div class="filter-options">
+              <select id="filter-status">
+                <option value="">All Statuses</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Lead">Lead</option>
+              </select>
+              <select id="filter-industry">
+                <option value="">All Industries</option>
+                <option value="Technology">Technology</option>
+                <option value="Finance">Finance</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Education">Education</option>
+                <option value="Retail">Retail</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Other">Other</option>
+              </select>
+              <select id="filter-account-manager">
+                <option value="">All Account Managers</option>
+                <!-- Will be populated via JavaScript -->
+              </select>
+            </div>
+          </div>
+
+          <div class="tab-container">
+            <div class="tab-navigation">
+              <button class="tab-btn active" data-tab="all-customers">All Customers</button>
+              <button class="tab-btn" data-tab="active-customers">Active</button>
+              <button class="tab-btn" data-tab="inactive-customers">Inactive</button>
+              <button class="tab-btn" data-tab="leads-customers">Leads</button>
+            </div>
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="all-customers">
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" id="select-all-customers"></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Company</th>
+                        <th>Industry</th>
+                        <th>Status</th>
+                        <th>Account Manager</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="customers-list">
+                      <!-- Customers will be loaded here dynamically -->
+                      <tr>
+                        <td><input type="checkbox" class="select-customer"></td>
+                        <td>Priya Krishnamurthy</td>
+                        <td>priya@bangaloresoft.com</td>
+                        <td>(555) 234-5678</td>
+                        <td>Bangalore Software Solutions</td>
+                        <td>Technology</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                        <td>Robert Brown</td>
+                        <td>1 month ago</td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline view-customer" data-id="4">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline edit-customer" data-id="4">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline delete-customer" data-id="4">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" class="select-customer"></td>
+                        <td>John Smith</td>
+                        <td>john@example.com</td>
+                        <td>(555) 123-4567</td>
+                        <td>Acme Corporation</td>
+                        <td>Technology</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                        <td>Jane Doe</td>
+                        <td>2 months ago</td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline view-customer" data-id="1">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline edit-customer" data-id="1">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline delete-customer" data-id="1">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" class="select-customer"></td>
+                        <td>Sarah Johnson</td>
+                        <td>sarah@techcorp.com</td>
+                        <td>(555) 987-6543</td>
+                        <td>Tech Corporation</td>
+                        <td>Technology</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                        <td>Robert Brown</td>
+                        <td>3 months ago</td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline view-customer" data-id="2">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline edit-customer" data-id="2">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline delete-customer" data-id="2">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" class="select-customer"></td>
+                        <td>Michael Brown</td>
+                        <td>michael@globalhealth.org</td>
+                        <td>(555) 456-7890</td>
+                        <td>Global Health</td>
+                        <td>Healthcare</td>
+                        <td><span class="badge badge-inactive">Inactive</span></td>
+                        <td>Jane Doe</td>
+                        <td>5 months ago</td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline view-customer" data-id="3">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline edit-customer" data-id="3">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline delete-customer" data-id="3">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pagination">
+                  <button class="btn btn-sm btn-outline" disabled>Previous</button>
+                  <span class="pagination-info">Showing 1-3 of 3</span>
+                  <button class="btn btn-sm btn-outline" disabled>Next</button>
+                </div>
+              </div>
+
+              <!-- Other tab panes will have similar structure but filtered content -->
+              <div class="tab-pane" id="active-customers">
+                <!-- Content will be dynamically filtered -->
+              </div>
+              <div class="tab-pane" id="inactive-customers">
+                <!-- Content will be dynamically filtered -->
+              </div>
+              <div class="tab-pane" id="leads-customers">
+                <!-- Content will be dynamically filtered -->
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Customer View Modal -->
+  <div id="view-customer-modal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3 id="customer-name-title">Customer Details</h3>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="customer-profile">
+          <div class="customer-header">
+            <div class="customer-info">
+              <h4 id="customer-company">Company Name</h4>
+              <span id="customer-status" class="badge">Status</span>
+            </div>
+            <div class="customer-actions">
+              <button class="btn btn-sm btn-outline" id="add-task-btn">
+                <i class="fas fa-tasks"></i> Add Task
+              </button>
+              <button class="btn btn-sm btn-outline" id="add-note-btn">
+                <i class="fas fa-sticky-note"></i> Add Note
+              </button>
+              <button class="btn btn-sm btn-primary" id="add-deal-btn">
+                <i class="fas fa-handshake"></i> New Deal
+              </button>
+            </div>
+          </div>
+
+          <div class="customer-tabs">
+            <div class="tab-navigation">
+              <button class="tab-btn active" data-tab="overview">Overview</button>
+              <button class="tab-btn" data-tab="contacts">Contacts</button>
+              <button class="tab-btn" data-tab="deals">Deals</button>
+              <button class="tab-btn" data-tab="tasks">Tasks</button>
+              <button class="tab-btn" data-tab="notes">Notes</button>
+              <button class="tab-btn" data-tab="documents">Documents</button>
+            </div>
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="overview">
+                <div class="customer-details-grid">
+                  <div class="detail-section">
+                    <h5>Contact Information</h5>
+                    <div class="detail-row">
+                      <span class="detail-label">Contact Name:</span>
+                      <span class="detail-value" id="detail-contact-name">John Smith</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Email:</span>
+                      <span class="detail-value" id="detail-email">john@example.com</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Phone:</span>
+                      <span class="detail-value" id="detail-phone">(555) 123-4567</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Website:</span>
+                      <span class="detail-value" id="detail-website">www.example.com</span>
+                    </div>
+                  </div>
+                  <div class="detail-section">
+                    <h5>Company Details</h5>
+                    <div class="detail-row">
+                      <span class="detail-label">Industry:</span>
+                      <span class="detail-value" id="detail-industry">Technology</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Size:</span>
+                      <span class="detail-value" id="detail-size">Medium</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Revenue:</span>
+                      <span class="detail-value" id="detail-revenue">$5M - $10M</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Founded:</span>
+                      <span class="detail-value" id="detail-founded">2005</span>
+                    </div>
+                  </div>
+                  <div class="detail-section">
+                    <h5>Address</h5>
+                    <div class="detail-row">
+                      <span class="detail-label">Street:</span>
+                      <span class="detail-value" id="detail-street">123 Main St</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">City:</span>
+                      <span class="detail-value" id="detail-city">San Francisco</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">State/Province:</span>
+                      <span class="detail-value" id="detail-state">CA</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Postal Code:</span>
+                      <span class="detail-value" id="detail-postal">94105</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Country:</span>
+                      <span class="detail-value" id="detail-country">USA</span>
+                    </div>
+                  </div>
+                  <div class="detail-section">
+                    <h5>Relationship</h5>
+                    <div class="detail-row">
+                      <span class="detail-label">Account Manager:</span>
+                      <span class="detail-value" id="detail-account-manager">Jane Doe</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Status:</span>
+                      <span class="detail-value" id="detail-status">Active</span>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Tags:</span>
+                      <div class="detail-value tags" id="detail-tags">
+                        <span class="tag">VIP</span>
+                        <span class="tag">Enterprise</span>
+                      </div>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Customer Since:</span>
+                      <span class="detail-value" id="detail-customer-since">Jan 15, 2022</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="activity-section">
+                  <h5>Recent Activity</h5>
+                  <ul class="activity-feed" id="customer-activity-feed">
+                    <li class="activity-item">
+                      <div class="activity-icon activity-email">
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                      <div class="activity-content">
+                        <div class="activity-header">
+                          <span class="activity-title">Email Sent</span>
+                          <span class="activity-time">2 days ago</span>
+                        </div>
+                        <div class="activity-body">
+                          Follow-up about the new product features
+                        </div>
+                        <div class="activity-footer">
+                          <a href="#">View Details</a>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="activity-item">
+                      <div class="activity-icon activity-call">
+                        <i class="fas fa-phone"></i>
+                      </div>
+                      <div class="activity-content">
+                        <div class="activity-header">
+                          <span class="activity-title">Call Completed</span>
+                          <span class="activity-time">1 week ago</span>
+                        </div>
+                        <div class="activity-body">
+                          Discussed renewal options and potential upgrades
+                        </div>
+                        <div class="activity-footer">
+                          <a href="#">View Details</a>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="activity-item">
+                      <div class="activity-icon activity-note">
+                        <i class="fas fa-sticky-note"></i>
+                      </div>
+                      <div class="activity-content">
+                        <div class="activity-header">
+                          <span class="activity-title">Note Added</span>
+                          <span class="activity-time">2 weeks ago</span>
+                        </div>
+                        <div class="activity-body">
+                          Customer interested in expanding to international markets
+                        </div>
+                        <div class="activity-footer">
+                          <a href="#">View Details</a>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="contacts">
+                <!-- Contacts tab content -->
+                <div class="tab-actions">
+                  <button class="btn btn-primary" id="add-contact-btn">
+                    <i class="fas fa-plus"></i> Add Contact
+                  </button>
+                </div>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Primary</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="contacts-list">
+                      <tr>
+                        <td>John Smith</td>
+                        <td>CEO</td>
+                        <td>john@example.com</td>
+                        <td>(555) 123-4567</td>
+                        <td><i class="fas fa-check text-success"></i></td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline edit-contact" data-id="1">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline delete-contact" data-id="1">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Emily Jones</td>
+                        <td>CTO</td>
+                        <td>emily@example.com</td>
+                        <td>(555) 234-5678</td>
+                        <td></td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline edit-contact" data-id="2">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline delete-contact" data-id="2">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="deals">
+                <!-- Deals tab content -->
+                <div class="tab-actions">
+                  <button class="btn btn-primary" id="view-customer-add-deal-btn">
+                    <i class="fas fa-plus"></i> Add Deal
+                  </button>
+                </div>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Value</th>
+                        <th>Status</th>
+                        <th>Expected Close</th>
+                        <th>Owner</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="deals-list">
+                      <tr>
+                        <td>Annual License Renewal</td>
+                        <td>$25,000</td>
+                        <td><span class="badge badge-negotiation">Negotiation</span></td>
+                        <td>Jun 30, 2023</td>
+                        <td>Jane Doe</td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline view-deal" data-id="1">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline edit-deal" data-id="1">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Professional Services</td>
+                        <td>$15,000</td>
+                        <td><span class="badge badge-won">Won</span></td>
+                        <td>Mar 15, 2023</td>
+                        <td>Robert Brown</td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline view-deal" data-id="2">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline edit-deal" data-id="2">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="tasks">
+                <!-- Tasks tab content -->
+                <div class="tab-actions">
+                  <button class="btn btn-primary" id="view-customer-add-task-btn">
+                    <i class="fas fa-plus"></i> Add Task
+                  </button>
+                </div>
+                <ul class="task-list" id="tasks-list">
+                  <li class="task-item">
+                    <div class="task-checkbox" data-id="1">
+                      <i class="fas fa-check"></i>
+                    </div>
+                    <div class="task-content">
+                      <div class="task-title">Follow up on renewal discussion</div>
+                      <div class="task-meta">
+                        <span><i class="fas fa-calendar"></i> Due: Tomorrow</span>
+                        <span><i class="fas fa-user"></i> Assigned to: Jane Doe</span>
+                        <span><i class="fas fa-flag"></i> Priority: High</span>
+                      </div>
+                    </div>
+                    <div class="task-actions">
+                      <button class="btn btn-icon btn-outline edit-task" data-id="1">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline delete-task" data-id="1">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </li>
+                  <li class="task-item">
+                    <div class="task-checkbox checked" data-id="2">
+                      <i class="fas fa-check"></i>
+                    </div>
+                    <div class="task-content">
+                      <div class="task-title completed">Send product documentation</div>
+                      <div class="task-meta">
+                        <span><i class="fas fa-calendar"></i> Due: 3 days ago</span>
+                        <span><i class="fas fa-user"></i> Assigned to: Robert Brown</span>
+                        <span><i class="fas fa-flag"></i> Priority: Medium</span>
+                      </div>
+                    </div>
+                    <div class="task-actions">
+                      <button class="btn btn-icon btn-outline edit-task" data-id="2">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline delete-task" data-id="2">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="tab-pane" id="notes">
+                <!-- Notes tab content -->
+                <div class="tab-actions">
+                  <button class="btn btn-primary" id="view-customer-add-note-btn">
+                    <i class="fas fa-plus"></i> Add Note
+                  </button>
+                </div>
+                <div class="notes-container" id="notes-list">
+                  <div class="note-card">
+                    <div class="note-header">
+                      <span class="note-author">Jane Doe</span>
+                      <span class="note-date">2 weeks ago</span>
+                    </div>
+                    <div class="note-content">
+                      Customer is interested in our new analytics feature. They would like to see a demo next week.
+                    </div>
+                    <div class="note-footer">
+                      <div class="note-actions">
+                        <button class="btn btn-icon btn-sm btn-outline edit-note" data-id="1">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-icon btn-sm btn-outline delete-note" data-id="1">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="note-card">
+                    <div class="note-header">
+                      <span class="note-author">Robert Brown</span>
+                      <span class="note-date">1 month ago</span>
+                    </div>
+                    <div class="note-content">
+                      Met with the customer's IT team. They have concerns about integration with their existing systems. Need to schedule a follow-up call with our technical team.
+                    </div>
+                    <div class="note-footer">
+                      <div class="note-actions">
+                        <button class="btn btn-icon btn-sm btn-outline edit-note" data-id="2">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-icon btn-sm btn-outline delete-note" data-id="2">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="documents">
+                <!-- Documents tab content -->
+                <div class="tab-actions">
+                  <button class="btn btn-primary" id="upload-document-btn">
+                    <i class="fas fa-upload"></i> Upload Document
+                  </button>
+                </div>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Size</th>
+                        <th>Uploaded By</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="documents-list">
+                      <tr>
+                        <td>Contract_2023.pdf</td>
+                        <td>PDF</td>
+                        <td>2.5 MB</td>
+                        <td>Jane Doe</td>
+                        <td>Mar 15, 2023</td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline download-document" data-id="1">
+                            <i class="fas fa-download"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline delete-document" data-id="1">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Requirements.docx</td>
+                        <td>DOCX</td>
+                        <td>1.2 MB</td>
+                        <td>Robert Brown</td>
+                        <td>Feb 28, 2023</td>
+                        <td class="actions">
+                          <button class="btn btn-icon btn-outline download-document" data-id="2">
+                            <i class="fas fa-download"></i>
+                          </button>
+                          <button class="btn btn-icon btn-outline delete-document" data-id="2">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary cancel-btn">Close</button>
+        <button type="button" class="btn btn-primary edit-customer-btn" data-id="">Edit Customer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Add/Edit Modal -->
+  <div id="customer-modal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3 id="customer-modal-title">Add Customer</h3>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="customer-form">
+          <input type="hidden" id="customer-id">
+          
+          <div class="form-tabs">
+            <div class="tab-navigation">
+              <button type="button" class="tab-btn active" data-tab="basic-info">Basic Info</button>
+              <button type="button" class="tab-btn" data-tab="company-info">Company</button>
+              <button type="button" class="tab-btn" data-tab="address-info">Address</button>
+              <button type="button" class="tab-btn" data-tab="additional-info">Additional</button>
+            </div>
+            
+            <div class="tab-content">
+              <div class="tab-pane active" id="basic-info">
+                <div class="form-group">
+                  <label for="customer-name">Name</label>
+                  <input type="text" id="customer-name" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="customer-email">Email</label>
+                    <input type="email" id="customer-email" name="email" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="customer-phone">Phone</label>
+                    <input type="tel" id="customer-phone" name="phone">
+                  </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="customer-company-name">Company Name</label>
+                    <input type="text" id="customer-company-name" name="company" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="customer-website">Website</label>
+                    <input type="url" id="customer-website" name="website" placeholder="https://">
+                  </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="customer-status">Status</label>
+                    <select id="customer-status" name="status">
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                      <option value="Lead">Lead</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="customer-account-manager">Account Manager</label>
+                    <select id="customer-account-manager" name="accountManager">
+                      <option value="">Select Account Manager</option>
+                      <!-- Will be populated via JavaScript -->
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="tab-pane" id="company-info">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="customer-industry">Industry</label>
+                    <select id="customer-industry" name="industry">
+                      <option value="">Select Industry</option>
+                      <option value="Technology">Technology</option>
+                      <option value="Finance">Finance</option>
+                      <option value="Healthcare">Healthcare</option>
+                      <option value="Education">Education</option>
+                      <option value="Retail">Retail</option>
+                      <option value="Manufacturing">Manufacturing</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="customer-size">Company Size</label>
+                    <select id="customer-size" name="size">
+                      <option value="">Select Size</option>
+                      <option value="Small">Small (1-50 employees)</option>
+                      <option value="Medium">Medium (51-500 employees)</option>
+                      <option value="Large">Large (501-5000 employees)</option>
+                      <option value="Enterprise">Enterprise (5000+ employees)</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="customer-revenue">Annual Revenue</label>
+                    <select id="customer-revenue" name="revenue">
+                      <option value="">Select Revenue</option>
+                      <option value="< $1M">Less than $1M</option>
+                      <option value="$1M - $5M">$1M - $5M</option>
+                      <option value="$5M - $10M">$5M - $10M</option>
+                      <option value="$10M - $50M">$10M - $50M</option>
+                      <option value="$50M - $100M">$50M - $100M</option>
+                      <option value="> $100M">More than $100M</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="customer-founded">Year Founded</label>
+                    <input type="number" id="customer-founded" name="founded" placeholder="YYYY" min="1800" max="2099">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="tab-pane" id="address-info">
+                <div class="form-group">
+                  <label for="customer-street">Street Address</label>
+                  <input type="text" id="customer-street" name="street">
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="customer-city">City</label>
+                    <input type="text" id="customer-city" name="city">
+                  </div>
+                  <div class="form-group">
+                    <label for="customer-state">State/Province</label>
+                    <input type="text" id="customer-state" name="state">
+                  </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="customer-postal">Postal/ZIP Code</label>
+                    <input type="text" id="customer-postal" name="postalCode">
+                  </div>
+                  <div class="form-group">
+                    <label for="customer-country">Country</label>
+                    <select id="customer-country" name="country">
+                      <option value="">Select Country</option>
+                      <option value="US">United States</option>
+                      <option value="CA">Canada</option>
+                      <option value="UK">United Kingdom</option>
+                      <option value="AU">Australia</option>
+                      <!-- More countries would be added -->
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="tab-pane" id="additional-info">
+                <div class="form-group">
+                  <label for="customer-tags">Tags</label>
+                  <input type="text" id="customer-tags" name="tags" placeholder="Separate tags with commas">
+                </div>
+                
+                <div class="form-group">
+                  <label for="customer-source">Lead Source</label>
+                  <select id="customer-source" name="source">
+                    <option value="">Select Source</option>
+                    <option value="Website">Website</option>
+                    <option value="Referral">Referral</option>
+                    <option value="Social Media">Social Media</option>
+                    <option value="Email Campaign">Email Campaign</option>
+                    <option value="Event">Event</option>
+                    <option value="Cold Call">Cold Call</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="customer-notes">Notes</label>
+                  <textarea id="customer-notes" name="notes" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="customer-custom-fields">Custom Fields</label>
+                  <div id="custom-fields-container">
+                    <!-- Custom fields will be added here dynamically -->
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline" id="add-custom-field-btn">
+                    <i class="fas fa-plus"></i> Add Custom Field
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+        <button type="button" class="btn btn-primary save-customer-btn">Save Customer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/customers.js"></script>
+</body>
+</html> 

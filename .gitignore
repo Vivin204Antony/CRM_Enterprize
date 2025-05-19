@@ -1,0 +1,11 @@
+# Create .gitignore for Node.js/JavaScript projects
+@"
+node_modules/
+.env
+.DS_Store
+dist/
+coverage/
+*.log
+.idea/
+.vscode/
+"@ | Out-File -Encoding utf8 .gitignore

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leads Management - Enterprise CRM</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar will be loaded with JavaScript -->
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+      <!-- Header will be loaded with JavaScript -->
+      <div id="header-container"></div>
+
+      <div class="content-wrapper">
+        <section id="leads-page" class="page active">
+          <div class="page-header">
+            <h2>Lead Management</h2>
+            <div class="page-actions">
+              <button class="btn btn-primary" id="add-lead-btn">
+                <i class="fas fa-plus"></i> Add Lead
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-bar">
+            <div class="search-container">
+              <input type="text" placeholder="Search leads..." id="lead-search">
+              <i class="fas fa-search"></i>
+            </div>
+            <div class="filter-options">
+              <select id="filter-status">
+                <option value="">All Statuses</option>
+                <option value="New">New</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Qualified">Qualified</option>
+                <option value="Proposal">Proposal</option>
+                <option value="Negotiation">Negotiation</option>
+                <option value="Closed Won">Closed Won</option>
+                <option value="Closed Lost">Closed Lost</option>
+              </select>
+              <select id="filter-source">
+                <option value="">All Sources</option>
+                <option value="Website">Website</option>
+                <option value="Referral">Referral</option>
+                <option value="Social Media">Social Media</option>
+                <option value="Email Campaign">Email Campaign</option>
+                <option value="Event">Event</option>
+                <option value="Cold Call">Cold Call</option>
+              </select>
+              <select id="filter-assigned">
+                <option value="">All Assigned To</option>
+                <!-- Will be populated via JavaScript -->
+              </select>
+            </div>
+          </div>
+
+          <div class="view-options">
+            <div class="view-selector">
+              <button class="view-btn active" data-view="list">
+                <i class="fas fa-list"></i> List
+              </button>
+              <button class="view-btn" data-view="kanban">
+                <i class="fas fa-columns"></i> Kanban
+              </button>
+            </div>
+            <div class="sort-options">
+              <label for="sort-leads">Sort By:</label>
+              <select id="sort-leads">
+                <option value="created-desc">Date Created (Newest)</option>
+                <option value="created-asc">Date Created (Oldest)</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="score-desc">Score (High-Low)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- List View -->
+          <div id="list-view" class="view-container active">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" id="select-all-leads"></th>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Source</th>
+                    <th>Score</th>
+                    <th>Assigned To</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="leads-list">
+                  <!-- Leads will be loaded here dynamically -->
+                  <tr>
+                    <td><input type="checkbox" class="select-lead"></td>
+                    <td>Arjun Subramaniam</td>
+                    <td>Chennai Tech Solutions</td>
+                    <td>arjun@chennaitech.com</td>
+                    <td>(555) 123-4567</td>
+                    <td><span class="badge badge-new">New</span></td>
+                    <td>Website</td>
+                    <td>65</td>
+                    <td>John Doe</td>
+                    <td>2 days ago</td>
+                    <td class="actions">
+                      <button class="btn btn-icon btn-outline edit-lead" data-id="1">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline convert-lead" data-id="1">
+                        <i class="fas fa-exchange-alt"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline delete-lead" data-id="1">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" class="select-lead"></td>
+                    <td>Lakshmi Nair</td>
+                    <td>Bangalore Digital Services</td>
+                    <td>lakshmi@bangaloredigital.com</td>
+                    <td>(555) 789-1234</td>
+                    <td><span class="badge badge-qualified">Qualified</span></td>
+                    <td>LinkedIn</td>
+                    <td>82</td>
+                    <td>Jane Smith</td>
+                    <td>1 day ago</td>
+                    <td class="actions">
+                      <button class="btn btn-icon btn-outline edit-lead" data-id="4">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline convert-lead" data-id="4">
+                        <i class="fas fa-exchange-alt"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline delete-lead" data-id="4">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" class="select-lead"></td>
+                    <td>Ravi Krishnan</td>
+                    <td>Madurai Software Solutions</td>
+                    <td>ravi@maduraisoftware.com</td>
+                    <td>(555) 987-6543</td>
+                    <td><span class="badge badge-qualified">Qualified</span></td>
+                    <td>Referral</td>
+                    <td>78</td>
+                    <td>Jane Smith</td>
+                    <td>3 days ago</td>
+                    <td class="actions">
+                      <button class="btn btn-icon btn-outline edit-lead" data-id="2">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline convert-lead" data-id="2">
+                        <i class="fas fa-exchange-alt"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline delete-lead" data-id="2">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" class="select-lead"></td>
+                    <td>Lisa Brown</td>
+                    <td>Global Services</td>
+                    <td>lisa@globalservices.com</td>
+                    <td>(555) 456-7890</td>
+                    <td><span class="badge badge-proposal">Proposal</span></td>
+                    <td>LinkedIn</td>
+                    <td>92</td>
+                    <td>John Doe</td>
+                    <td>1 week ago</td>
+                    <td class="actions">
+                      <button class="btn btn-icon btn-outline edit-lead" data-id="3">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline convert-lead" data-id="3">
+                        <i class="fas fa-exchange-alt"></i>
+                      </button>
+                      <button class="btn btn-icon btn-outline delete-lead" data-id="3">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="pagination">
+              <button class="btn btn-sm btn-outline" disabled>Previous</button>
+              <span class="pagination-info">Showing 1-3 of 3</span>
+              <button class="btn btn-sm btn-outline" disabled>Next</button>
+            </div>
+          </div>
+
+          <!-- Kanban View -->
+          <div id="kanban-view" class="view-container">
+            <div class="kanban-board">
+              <div class="kanban-column">
+                <div class="kanban-column-header">
+                  <h3>New</h3>
+                  <span class="badge">1</span>
+                </div>
+                <div class="kanban-cards" id="new-leads">
+                  <div class="kanban-card" draggable="true" data-id="1">
+                    <div class="kanban-card-header">
+                      <span class="lead-name">Arjun Subramaniam</span>
+                      <span class="lead-score">65</span>
+                    </div>
+                    <div class="kanban-card-body">
+                      <p class="lead-company">Chennai Tech Solutions</p>
+                      <p class="lead-contact">arjun@chennaitech.com</p>
+                    </div>
+                    <div class="kanban-card-footer">
+                      <span class="badge badge-sm">Website</span>
+                      <span class="assigned-to">John Doe</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column">
+                <div class="kanban-column-header">
+                  <h3>Contacted</h3>
+                  <span class="badge">0</span>
+                </div>
+                <div class="kanban-cards" id="contacted-leads">
+                  <!-- Empty state -->
+                  <div class="kanban-empty-state">
+                    <p>No leads in this stage</p>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column">
+                <div class="kanban-column-header">
+                  <h3>Qualified</h3>
+                  <span class="badge">2</span>
+                </div>
+                <div class="kanban-cards" id="qualified-leads">
+                  <div class="kanban-card" draggable="true" data-id="2">
+                    <div class="kanban-card-header">
+                      <span class="lead-name">Ravi Krishnan</span>
+                      <span class="lead-score">78</span>
+                    </div>
+                    <div class="kanban-card-body">
+                      <p class="lead-company">Madurai Software Solutions</p>
+                      <p class="lead-contact">ravi@maduraisoftware.com</p>
+                    </div>
+                    <div class="kanban-card-footer">
+                      <span class="badge badge-sm">Referral</span>
+                      <span class="assigned-to">Jane Smith</span>
+                    </div>
+                  </div>
+                  <div class="kanban-card" draggable="true" data-id="4">
+                    <div class="kanban-card-header">
+                      <span class="lead-name">Lakshmi Nair</span>
+                      <span class="lead-score">82</span>
+                    </div>
+                    <div class="kanban-card-body">
+                      <p class="lead-company">Bangalore Digital Services</p>
+                      <p class="lead-contact">lakshmi@bangaloredigital.com</p>
+                    </div>
+                    <div class="kanban-card-footer">
+                      <span class="badge badge-sm">LinkedIn</span>
+                      <span class="assigned-to">Jane Smith</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column">
+                <div class="kanban-column-header">
+                  <h3>Proposal</h3>
+                  <span class="badge">1</span>
+                </div>
+                <div class="kanban-cards" id="proposal-leads">
+                  <div class="kanban-card" draggable="true" data-id="3">
+                    <div class="kanban-card-header">
+                      <span class="lead-name">Lisa Brown</span>
+                      <span class="lead-score">92</span>
+                    </div>
+                    <div class="kanban-card-body">
+                      <p class="lead-company">Global Services</p>
+                      <p class="lead-contact">lisa@globalservices.com</p>
+                    </div>
+                    <div class="kanban-card-footer">
+                      <span class="badge badge-sm">LinkedIn</span>
+                      <span class="assigned-to">John Doe</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column">
+                <div class="kanban-column-header">
+                  <h3>Negotiation</h3>
+                  <span class="badge">0</span>
+                </div>
+                <div class="kanban-cards" id="negotiation-leads">
+                  <!-- Empty state -->
+                  <div class="kanban-empty-state">
+                    <p>No leads in this stage</p>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column">
+                <div class="kanban-column-header">
+                  <h3>Closed Won</h3>
+                  <span class="badge">0</span>
+                </div>
+                <div class="kanban-cards" id="won-leads">
+                  <!-- Empty state -->
+                  <div class="kanban-empty-state">
+                    <p>No leads in this stage</p>
+                  </div>
+                </div>
+              </div>
+              <div class="kanban-column">
+                <div class="kanban-column-header">
+                  <h3>Closed Lost</h3>
+                  <span class="badge">0</span>
+                </div>
+                <div class="kanban-cards" id="lost-leads">
+                  <!-- Empty state -->
+                  <div class="kanban-empty-state">
+                    <p>No leads in this stage</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add/Edit Lead Modal -->
+  <div id="lead-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="lead-modal-title">Add Lead</h3>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="lead-form">
+          <input type="hidden" id="lead-id">
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="lastName" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lead-status">Status</label>
+              <select id="lead-status" name="status">
+                <option value="New">New</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Qualified">Qualified</option>
+                <option value="Proposal">Proposal</option>
+                <option value="Negotiation">Negotiation</option>
+                <option value="Closed Won">Closed Won</option>
+                <option value="Closed Lost">Closed Lost</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="lead-source">Source</label>
+              <select id="lead-source" name="source">
+                <option value="Website">Website</option>
+                <option value="Referral">Referral</option>
+                <option value="Social Media">Social Media</option>
+                <option value="Email Campaign">Email Campaign</option>
+                <option value="Event">Event</option>
+                <option value="Cold Call">Cold Call</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lead-score">Score</label>
+              <input type="number" id="lead-score" name="score" min="0" max="100" value="0">
+            </div>
+            <div class="form-group">
+              <label for="assigned-to">Assigned To</label>
+              <select id="assigned-to" name="assignedTo">
+                <option value="">Select User</option>
+                <!-- Will be populated via JavaScript -->
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="lead-notes">Notes</label>
+            <textarea id="lead-notes" name="notes"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="lead-tags">Tags</label>
+            <input type="text" id="lead-tags" name="tags" placeholder="Separate tags with commas">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+        <button type="button" class="btn btn-primary save-lead-btn">Save Lead</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Convert Lead Modal -->
+  <div id="convert-lead-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Convert Lead to Customer</h3>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>You are about to convert <strong id="convert-lead-name">Lead Name</strong> to a customer.</p>
+        
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="create-deal" checked>
+            Create a deal for this customer
+          </label>
+        </div>
+        
+        <div id="deal-details" class="convert-section">
+          <h4>Deal Details</h4>
+          <div class="form-group">
+            <label for="deal-title">Deal Title</label>
+            <input type="text" id="deal-title" name="title">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="deal-value">Value (₹)</label>
+              <input type="number" id="deal-value" name="value" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+              <label for="deal-status">Status</label>
+              <select id="deal-status" name="status">
+                <option value="New">New</option>
+                <option value="Qualified">Qualified</option>
+                <option value="Proposal">Proposal</option>
+                <option value="Negotiation">Negotiation</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+        <button type="button" class="btn btn-primary convert-btn">Convert</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/leads.js"></script>
+</body>
+</html> 
