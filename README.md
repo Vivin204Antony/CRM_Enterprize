@@ -108,3 +108,5 @@ This will add 13 sample customers and 13 deals to your database. The script will
 - Output confirmation when the seeding is complete
 
 After running the seed script, start the application and you should see the sample data in the CRM interface. 
+-----
+⭐ If you found this project helpful, please give it a star!
